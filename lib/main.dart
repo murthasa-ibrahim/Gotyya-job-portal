@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project_gotyaa/view/edit_profile.dart';
 import 'package:project_gotyaa/view/intro_page.dart';
+import 'package:project_gotyaa/view/profile.dart';
 import 'package:project_gotyaa/view/sign_in.dart';
 import 'package:project_gotyaa/view/sign_up.dart';
 import 'package:project_gotyaa/view/splash.dart';
@@ -18,9 +20,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
       // textTheme: GoogleFonts.aBeeZeeTextTheme(Theme.of(context).textTheme),
-        primarySwatch: Colors.grey,
+        primarySwatch: Colors.teal,
       ),
-      home: const Splash()
+      home:   ProfileScreen()
     );
   }
 }

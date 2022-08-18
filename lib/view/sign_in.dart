@@ -78,7 +78,7 @@ class SignIn extends StatelessWidget {
                               }
                               return null;
                             },
-                            textInputAction: TextInputAction.next,
+                            textInputAction: TextInputAction.done,
                             decoration: InputDecoration(
                                 fillColor: Colors.white,
                                 filled: true,
