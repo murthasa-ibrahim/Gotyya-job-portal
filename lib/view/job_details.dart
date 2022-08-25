@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_gotyaa/view/custom_widgets/my_container.dart';
-import 'package:project_gotyaa/view/custom_widgets/my_text.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:project_gotyaa/view/chat_page.dart';
+import 'package:project_gotyaa/view/widget/my_container.dart';
 
 class JobDetails extends StatelessWidget {
   const JobDetails({Key? key}) : super(key: key);
@@ -12,8 +13,8 @@ class JobDetails extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: Column(
-            children: [
-               Row(
+        children: [
+          Row(
             children: [
               IconButton(
                   onPressed: () {
@@ -32,16 +33,16 @@ class JobDetails extends StatelessWidget {
           SizedBox(
             height: h * .002,
           ),
-              Expanded(
-                child: ListView(
-                      children: [
+          Expanded(
+            child: ListView(
+              children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const [
-                    MyText(
-                      data: 'Android Engineer',
-                      size: 25,
-                      fontWeight: FontWeight.bold,
+                  children: [
+                    Text(
+                      'Android Engineer',
+                      style: GoogleFonts.spectral(
+                          fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                     MyContainer(
                       height: 20,
@@ -60,16 +61,14 @@ class JobDetails extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const [
-                    CircleAvatar(
+                  children: [
+                    const CircleAvatar(
                       backgroundColor: Colors.blueGrey,
                       radius: 30,
                     ),
-                    MyText(
-                      data: 'Ivan hazard',
-                      size: 20,
-                    ),
-                    MyText(data: 'details')
+                    Text('Ivan hazard',
+                        style: GoogleFonts.spectral(fontSize: 20)),
+                    const Text('details'),
                   ],
                 ),
                 SizedBox(
@@ -86,30 +85,53 @@ class JobDetails extends StatelessWidget {
                   child: Column(
                     children: [
                       Row(
-                        children: const [
-                          MyText(
-                            data: 'Job Description',
-                            size: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.teal,
+                        children: [
+                          Text(
+                            'Job Description',
+                            style: GoogleFonts.spectral(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.teal,
+                                fontSize: 24),
                           ),
-                          Spacer()
+                          const Spacer()
                         ],
                       ),
-                      const MyText(
-                          data:
-                              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been theLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been theLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been theLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been theLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been theLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the",size: 20,),
-                              SizedBox(height: h*.04,),
-                    //  MyContainer(height: h*.065, width: w*.8, child: const Center(child: MyText(data:'Start Chatting',size: 30,),),radius:10 ,color: Colors.teal,)
+                      Text(
+                          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been theLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been theLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been theLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been theLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been theLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the",
+                          style: GoogleFonts.spectral(fontSize: 20)),
+                      SizedBox(
+                        height: h * .04,
+                      ),
                     ],
                   ),
                 )
-                      ],
-                    ),
+              ],
+            ),
+          ),
+        ],
+      )),
+      bottomNavigationBar: InkWell(
+        onTap: () => Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const ChatScreen(),
+        )),
+        child: Container(
+          margin: const EdgeInsets.all(20),
+          height: 50,
+          width: 70,
+          child: MyContainer(
+            height: 30,
+            width: 50,
+            radius: 10,
+            color: Colors.teal,
+            child: Center(
+              child: Text(
+                'Start Chatting',
+                style: GoogleFonts.spectral(fontSize: 30),
               ),
-            ],
-          )),
-      bottomNavigationBar: Container(margin: EdgeInsets.all(20), height: 50,width: 70,child:   MyContainer(height: 30, width: 50, child: const Center(child: MyText(data:'Start Chatting',size: 30,),),radius:10 ,color: Colors.teal,),),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

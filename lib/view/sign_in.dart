@@ -1,17 +1,21 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:project_gotyaa/view/navbar.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:project_gotyaa/providers/sign_in_provider.dart';
+
+
 import 'package:project_gotyaa/view/sign_up.dart';
+import 'package:project_gotyaa/view/widget/text_form_field.dart';
+import 'package:provider/provider.dart';
 
 class SignIn extends StatelessWidget {
-   SignIn({Key? key}) : super(key: key);
-  final _formKey = GlobalKey<FormState>();
- 
+ const  SignIn({Key? key}) : super(key: key);
+  
+  
   @override
   Widget build(BuildContext context) {
-     final h = MediaQuery.of(context).size.height;
+    final h = MediaQuery.of(context).size.height;
     final w = MediaQuery.of(context).size.width;
+    final signInProvider = Provider.of<SignInProvider>(context,listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -19,7 +23,6 @@ class SignIn extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           child: Container(
             height: h,
-            
             decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('asset/images/new.jpg'), fit: BoxFit.cover),
@@ -27,114 +30,155 @@ class SignIn extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  children:const [
-                     SizedBox(width: 25,),
-                     Text(
-                      'Sign In',
-                      style: TextStyle(fontSize: 50, color: Colors.white),
-                    ),
-                     Spacer()
-                  ],
+                const Text(
+                  'Sign In',
+                  style: TextStyle(fontSize: 50, color: Colors.white),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 Container(
                   margin: const EdgeInsets.only(left: 15, right: 15),
-                  // color: Colors.amber,
-                  height: h * 0.6,
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            validator: (value){
-                              if(value == null || value.isEmpty){
-                                return 'enter your email';
-                              }
-                              return null;
-                            },
-                            textInputAction: TextInputAction.next,
-                            decoration: InputDecoration(
+                  child: Consumer<SignInProvider>(
+                    builder: (__, value, _) => 
+                     Form(
+                      key:signInProvider.formKey ,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: MyTextFeild(
+                              controller:signInProvider.emailController ,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
                                 fillColor: Colors.white,
                                 filled: true,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
                                 hintText: 'email',
-                                hintStyle: const TextStyle(
-                                    color: Colors.black, fontSize: 20)),
+                              ),
+                              inputType: TextInputType.emailAddress,
+                              textInputAction: TextInputAction.next,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'enter mail';
+                                }
+                                return null;
+                              },
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 6,),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            validator: (value) {
-                              if(value == null || value.isEmpty){
-                                return 'enter password';
-                              }
-                              return null;
-                            },
-                            textInputAction: TextInputAction.done,
-                            decoration: InputDecoration(
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: MyTextFeild(
+                              controller:signInProvider.passwordController ,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
                                 fillColor: Colors.white,
                                 filled: true,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                hintText: 'password',
-                                hintStyle: const TextStyle(
-                                    color: Colors.black, fontSize: 20)),
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            const Spacer(),
-                            TextButton(
-                              onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  SignUp(),));},
-                              child: const Text(
-                                "Don't have an account?",
-                                style: TextStyle(color: Colors.white, fontSize: 17),
+                                hintText: 'Password',
                               ),
-                            ),
-                            const SizedBox(
-                              width: 13,
-                            )
-                          ],
-                        ),
-                        InkWell(
-                          onTap: () {
-                            if(_formKey.currentState!.validate()){
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Processing data')));
-                               Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Navbar(),));
-                            }
-                           
-                          },
-                          child: Container(
-                            height: w * .15,
-                            width: w * .87,
-                            decoration: BoxDecoration(
-                                color: Colors.green,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: const Center(
-                              child: Text(
-                                'Sign In',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                              obscureText: true,
+                              inputType: TextInputType.number,
+                              textInputAction: TextInputAction.done,
+                              validator:(value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'password is required';
+                                }
+                                return null;
+                              },
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 20,),
-                        const Text('OR',style: TextStyle(fontSize: 18,color: Colors.white),),
-                        const Text('Sign in With',style: TextStyle(fontSize: 18,color: Colors.white),),
-                        const SizedBox(height: 10,),
-                        Image.asset('asset/images/google (1).png',height: 40,width: 40,),
-                      ],
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                                width: w,
+                                height: w * .15,
+                                child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Colors.green)),
+                                    onPressed: () {
+                                     signInProvider.checkValidation(context);
+                                    },
+                                    child: const Text(
+                                      'Sign In',
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ))),
+                          ),
+                          const Text(
+                            'OR',
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                                width: w,
+                                height: w * .15,
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.white,
+                                    ),
+                                    onPressed: () {},
+                                    child: Row(
+                                      children: [
+                                        ClipRRect(
+                                            child: Image.asset(
+                                          'asset/images/google (1).png',
+                                          width: 50,
+                                          height: 50,
+                                        )),
+                                        const Text(
+                                          'Sign in with Google',
+                                          style: TextStyle(
+                                              fontSize: 23,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                      ],
+                                    ))),
+                          ),
+                          Row(
+                            children: [
+                              const Spacer(),
+                              Row(
+                                children: [
+                                  Text(
+                                    " Don't have an account?",
+                                    style: GoogleFonts.spectral(
+                                        fontSize: 17,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => SignUp(),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      "Create",
+                                      style: GoogleFonts.spectral(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 13,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

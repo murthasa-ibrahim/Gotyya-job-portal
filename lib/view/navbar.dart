@@ -1,48 +1,65 @@
+
+
 import 'package:flutter/material.dart';
-import 'package:project_gotyaa/view/home.dart';
-import 'package:project_gotyaa/view/screen_2.dart';
-import 'package:project_gotyaa/view/profile.dart';
+import 'package:project_gotyaa/providers/navbar_provider.dart';
+import 'package:provider/provider.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({Key? key}) : super(key: key);
-
+ 
   @override
   State<Navbar> createState() => _NavbarState();
 }
 
 class _NavbarState extends State<Navbar> {
-  int screenIndex = 0;
-
-  List<Widget> screens = [const Home(), const Screen2(),  ProfileScreen()];
-
+  // int screenIndex = 0;
+  // List<Widget> screens = [
+  //   const Home(),
+  //   const Screen2(),
+  //   const ChatList(),
+  //   const ProfileScreen()
+  // ];
   @override
   Widget build(BuildContext context) {
+    // final navbarProvider = Provider.of<NavBarProvider>(context,listen: false);
     return Scaffold(
-      body: screens[screenIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-              ),
-              label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.post_add_rounded), label: 'blog'),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person,
-              ),
-              label: 'profile'),
-        ],
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        selectedItemColor: Colors.teal,
-        currentIndex: screenIndex,
-        onTap: (index) {
-          setState(() {
-            screenIndex = index;
-          });
-        },
+      body: Consumer<NavBarProvider>(
+        builder: (_, value, child) => 
+       (value.screens[value.screenIndex ])),
+      bottomNavigationBar: Consumer<NavBarProvider>(
+        builder: (context, value, child) => 
+             BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(
+                backgroundColor: Colors.white,
+                icon: Icon(
+                  Icons.home,
+                ),
+                label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.post_add_rounded), label: 'blog'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.chat,
+                ),
+                label: 'Chat'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.person,
+                ),
+                label: 'profile'),
+          ],
+          showSelectedLabels: true,
+          showUnselectedLabels: false,
+          selectedItemColor: Colors.teal,
+          unselectedItemColor: Colors.black,
+          currentIndex: value.screenIndex,
+          onTap: (index) {
+         
+            value.changeIndex(index);
+           
+          },
+        ),
       ),
     );
   }

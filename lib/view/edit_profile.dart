@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:project_gotyaa/view/custom_widgets/my_text.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:project_gotyaa/view/widget/text_form_field.dart';
 
 class EditProfile extends StatelessWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -9,22 +10,17 @@ class EditProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      
+      backgroundColor: Colors.teal,
       body: SafeArea(
           child: ListView(
         children: [
            
          Row(
            children: [
-            IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back_ios_rounded,color: Colors.teal,size: 30,)),
-            const  Padding(
-               padding:  EdgeInsets.all(10.0),
-               child:  MyText(
-                 data: 'Edit profile',
-                 size: 35,
-                 fontWeight: FontWeight.bold,
-                 color: Colors.teal,
-               ),
+            IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back_ios_rounded,color: Colors.white,size: 30,)),
+              Padding(
+               padding: const EdgeInsets.all(10.0),
+               child: Text( 'Edit Profile',style: GoogleFonts.spectral(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white),),
              ),
            ],
          ),
@@ -37,45 +33,38 @@ class EditProfile extends StatelessWidget {
             //  color: Colors.amber,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
+             
               children: [
-                Row(
-                  children: [
-                    SizedBox(
-                      width: size.width * .45,
-                      child: TextFormField(
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                            hintText: 'Name',
-                            hintStyle: const TextStyle(color: Colors.black),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8))),
-                      ),
-                    ),
-                    const Spacer(),
-                    SizedBox(
-                      width: size.width * .45,
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            hintText: 'Head line',
-                            hintStyle: const TextStyle(color: Colors.black),
-                            border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8))),
-                      ),
-                    ),
-                  ],
+                MyTextFeild(
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      hintText: 'Name',
+                      hintStyle: const TextStyle(color: Colors.black),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8))),
                 ),
+                const SizedBox(height: 20,),
+                  TextFormField(
+                      decoration: InputDecoration(
+                         fillColor: Colors.white,
+                         filled: true,
+                          hintText: 'Head line',
+                          hintStyle: const TextStyle(color: Colors.black),
+                          border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8))),
+                    ),
                 const SizedBox(
                   height: 20,
                 ),
-                const MyText(
-                  data: 'About me',
-                  size: 20,
-                ),
+                 Text( 'About me',style: GoogleFonts.spectral(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.white),),
                 TextFormField(
                   minLines: 9,
                   maxLines: 9,
                   decoration: InputDecoration(
+                     fillColor: Colors.white,
+                      filled: true,
                    hintStyle:const  TextStyle(color: Colors.black),
                    border: OutlineInputBorder(
                    borderRadius: BorderRadius.circular(8))),
@@ -83,62 +72,51 @@ class EditProfile extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                 const MyText(
-                  data: 'My skills',
-                  size: 20,
-                ),
+                  Text( 'My skills',style: GoogleFonts.spectral(fontSize: 20,color: Colors.white),),
                  TextFormField(
                   minLines: 9,
                   maxLines: 9,
                   decoration: InputDecoration(
+                     fillColor: Colors.white,
+                      filled: true,
                    hintStyle:const  TextStyle(color: Colors.teal),
                    border: OutlineInputBorder(
                    borderRadius: BorderRadius.circular(8))),
                 ),
                 const SizedBox(height: 20,),
-                 const MyText(
-                  data: 'Experience',
-                  size: 20,
-                ),    
+                  Text( 'Experience',style: GoogleFonts.spectral(fontSize: 20,color: Colors.white),),
                  TextFormField(
                   minLines: 2,
                   maxLines: 2,
                   decoration: InputDecoration(
+                    fillColor: Colors.white,
+                      filled: true,
                    hintStyle:const  TextStyle(color: Colors.teal),
                    border: OutlineInputBorder(
                    borderRadius: BorderRadius.circular(8))),
                 ),
                 const SizedBox(height: 20,),
-                 const MyText(
-                  data: 'Contact',
-                  size: 20,
-                ),    
-                   Row(
-                  children: [
-                    SizedBox(
-                      width: size.width * .45,
-                      child: TextFormField(
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                            hintText: ' phone',
-                            hintStyle: const TextStyle(color: Colors.black),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8))),
-                      ),
+                  Text( 'Contact',style: GoogleFonts.spectral(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.white),),
+                   TextFormField(
+                     maxLines: 1,
+                     decoration: InputDecoration(
+                       fillColor: Colors.white,
+                       filled: true,
+                         hintText: ' phone',
+                         hintStyle: const TextStyle(color: Colors.black),
+                         border: OutlineInputBorder(
+                             borderRadius: BorderRadius.circular(8))),
+                   ),
+                   const SizedBox(height: 20,),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                          hintText: 'email',
+                          hintStyle: const TextStyle(color: Colors.black),
+                          border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8))),
                     ),
-                    const Spacer(),
-                    SizedBox(
-                      width: size.width * .45,
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            hintText: 'email',
-                            hintStyle: const TextStyle(color: Colors.black),
-                            border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8))),
-                      ),
-                    ),
-                  ],
-                ),
                 const SizedBox(height: 20,),
               ],
             ),

@@ -1,10 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:math' as math;
-
-import 'package:project_gotyaa/view/custom_widgets/my_text.dart';
 import 'package:project_gotyaa/view/edit_profile.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -17,7 +16,7 @@ class ProfileScreen extends StatelessWidget {
       body: SafeArea(
           child: ListView(
         children: [
-          MyProfile(height: math.max(w / 3, h * .4)),
+          MyProfile(height: math.max(w / 3, h * .3)),
           ProfileCard(
             width: w,
             title: 'About me',
@@ -35,17 +34,13 @@ class ProfileScreen extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  MyText(
-                    data: 'Contact',
-                    size: 23,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  MyText(
-                    data: "Email  : sail@gmail.com \nPhone : 9061118778",
-                    size: 18,
-                    color: Colors.white,
+                children: [
+                  Text('Contact',
+                      style: GoogleFonts.spectral(
+                          fontSize: 23, fontWeight: FontWeight.bold)),
+                  const Text(
+                    "Email  : sail@gmail.com \nPhone : 9061118778",
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                   )
                 ],
               ),
@@ -81,19 +76,14 @@ class ProfileCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MyText(
-                fontWeight: FontWeight.bold,
-                data: title,
-                size: 26,
-                color: Colors.black,
+              Text(
+                title,
+                style: GoogleFonts.spectral(fontSize: 26, color: Colors.black),
               ),
-              const MyText(
-                color: Colors.white,
-                data:
-                    "c the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-                size: 20,
+              Text(
+                "c the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+                style: GoogleFonts.spectral(fontSize: 20, color: Colors.white),
               ),
-              //  SizedBox(height: 10,),
             ],
           ),
         ));
@@ -132,22 +122,13 @@ class _MyProfileState extends State<MyProfile> {
                     gradient:
                         LinearGradient(colors: [Colors.teal, Colors.green])),
               ),
-              const Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Icon(Icons.settings),
-                  )),
-              const Align(
+              Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: MyText(
-                      data: 'Profile',
-                      size: 40,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text('Profiel',
+                          style: GoogleFonts.spectral(
+                              fontSize: 40, fontWeight: FontWeight.bold)))),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: ClipRRect(
@@ -170,18 +151,17 @@ class _MyProfileState extends State<MyProfile> {
               Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding:  EdgeInsets.only(left: circleHeight/2),
+                    padding: EdgeInsets.only(left: circleHeight / 2),
                     child: ElevatedButton(
                         onPressed: () {
                           pickSource();
-                          // chosePIck(ImageSource.gallery);
                         },
                         style: ElevatedButton.styleFrom(
-                          shape:const CircleBorder(),
+                          shape: const CircleBorder(),
                         ),
-                        child:  const Padding(
-                          padding:  EdgeInsets.all(8.0),
-                          child:  Icon(
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(
                             Icons.camera_alt_rounded,
                             size: 30,
                           ),
@@ -191,9 +171,7 @@ class _MyProfileState extends State<MyProfile> {
                   alignment: Alignment.bottomRight,
                   child: IconButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const EditProfile(),
-                        ));
+                        showSettings();
                       },
                       icon: const Icon(
                         Icons.edit_note_sharp,
@@ -205,12 +183,10 @@ class _MyProfileState extends State<MyProfile> {
         const SizedBox(
           height: 10,
         ),
-        const MyText(
-            data: 'Harry Styles',
-            size: 25,
-            fontWeight: FontWeight.w800,
-            color: Colors.teal),
-        const MyText(data: 'UI/UX designer', size: 27)
+        Text('Harry Styles',
+            style: GoogleFonts.spectral(
+                fontSize: 25, fontWeight: FontWeight.bold, color: Colors.teal)),
+        Text('UI/UX designer', style: GoogleFonts.spectral(fontSize: 27)),
       ],
     );
   }
@@ -224,44 +200,99 @@ class _MyProfileState extends State<MyProfile> {
       });
     }
   }
-  
+
   void pickSource() {
-   showModalBottomSheet(
-  backgroundColor: Colors.transparent,
-  
-    context: context, builder:(context){
-    final size = MediaQuery.of(context).size;
-    return Container(
-     
-      decoration:const BoxDecoration(borderRadius: BorderRadius.only(topLeft:Radius.circular(20),topRight: Radius.circular(20)), color: Colors.white,),
-      height: math.max(size.width/3, size.height*.3),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-       children: [
-        InkWell(
-          onTap: (){
-            Navigator.pop(context);
-            chosePIck(ImageSource.camera);
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Choose',
+                style: GoogleFonts.spectral(
+                  fontSize: 25,
+                )),
+            actionsAlignment: MainAxisAlignment.center,
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      chosePIck(ImageSource.camera);
+                    },
+                    icon: const Icon(
+                      Icons.camera_alt,
+                      size: 50,
+                    )),
+                const SizedBox(
+                  width: 30,
+                ),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      chosePIck(ImageSource.gallery);
+                    },
+                    icon: const Icon(
+                      Icons.image,
+                      size: 50,
+                    )),
+              ],
+            ),
+          );
+        });
+  }
 
-          },
-          child: const MyText(data: 'Camera',size:25,fontWeight: FontWeight.bold,)),
-        const  Divider(thickness: 2,),
-       InkWell(
-         onTap: (){
-            Navigator.pop(context);
-            chosePIck(ImageSource.gallery);
-
-          },
-         child: const MyText(data: 'Gallery',size: 25,fontWeight: FontWeight.bold,)),
-       const  Divider(thickness: 2,),
-        InkWell(
-          onTap: () => Navigator.pop(context),
-          child: const MyText(data: 'Cancel',size: 25,fontWeight: FontWeight.bold,))
-       ],
-      ),
-    );
-   });
-
-
+  showSettings() {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) {
+          final size = MediaQuery.of(context).size;
+          return Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+              color: Colors.white,
+            ),
+            height: math.max(size.width / 3, size.height * .3),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const EditProfile(),
+                      ));
+                      // chosePIck(ImageSource.camera);
+                    },
+                    child: Text('Edit profile',
+                        style: GoogleFonts.spectral(
+                            fontSize: 25, fontWeight: FontWeight.bold))),
+                const Divider(
+                  thickness: 1,
+                  color: Colors.teal,
+                ),
+                InkWell(
+                    onTap: () {},
+                    child: const Text(
+                      'Saved Jobs',
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    )),
+                const Divider(
+                  thickness: 1,
+                  color: Colors.teal,
+                ),
+                InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: const Text(
+                      'Saved Jobs',
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ))
+              ],
+            ),
+          );
+        });
   }
 }

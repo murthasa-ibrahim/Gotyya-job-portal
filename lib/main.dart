@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:project_gotyaa/view/edit_profile.dart';
-import 'package:project_gotyaa/view/intro_page.dart';
-import 'package:project_gotyaa/view/profile.dart';
-import 'package:project_gotyaa/view/sign_in.dart';
-import 'package:project_gotyaa/view/sign_up.dart';
+import 'package:project_gotyaa/providers/navbar_provider.dart';
+import 'package:project_gotyaa/providers/sign_in_provider.dart';
+import 'package:project_gotyaa/view/navbar.dart';
 import 'package:project_gotyaa/view/splash.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,14 +14,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-      // textTheme: GoogleFonts.aBeeZeeTextTheme(Theme.of(context).textTheme),
-        primarySwatch: Colors.teal,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<NavBarProvider>(create: (context) => NavBarProvider(),),
+        ChangeNotifierProvider<SignInProvider>(create: (context) => SignInProvider(),),
+        
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+        // textTheme: GoogleFonts.aBeeZeeTextTheme(Theme.of(context).textTheme),
+          primarySwatch: Colors.teal,
+        ),
+        home:  const Splash()
       ),
-      home:   ProfileScreen()
     );
   }
 }
