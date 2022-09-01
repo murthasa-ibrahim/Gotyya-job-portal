@@ -2,7 +2,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:project_gotyaa/view/sign_in.dart';
+import 'package:project_gotyaa/screens/home.dart';
+import 'package:project_gotyaa/screens/navbar.dart';
+import 'package:project_gotyaa/screens/sign_in.dart';
 
 class Splash extends StatefulWidget {
 const Splash({Key? key}) : super(key: key);
@@ -17,12 +19,13 @@ class _SplashState extends State<Splash> {
     Timer(
         const Duration(seconds: 4),
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) =>  SignIn(),
+              builder: (context) => const Navbar(),
             )));
     super.initState();
   }
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
+    
     return  Scaffold(
       body: Container(    
         decoration:const BoxDecoration( image: DecorationImage(image: AssetImage('asset/images/gotyaa.jpg'),fit: BoxFit.cover)) ,

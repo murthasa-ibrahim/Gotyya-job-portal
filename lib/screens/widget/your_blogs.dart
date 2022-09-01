@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_gotyaa/view/comment_screen.dart';
-
 class YourBlogs extends StatelessWidget {
   const YourBlogs({Key? key}) : super(key: key);
 
@@ -52,7 +50,7 @@ class YourBlogs extends StatelessWidget {
                       const Spacer(),
                       TextButton(
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) =>const  CommentSection(),));
+                          // Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  BlogDetails(),));
                         },
                         child: const Text(
                           'View full',

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:project_gotyaa/view/chat_page.dart';
-import 'package:project_gotyaa/view/widget/my_container.dart';
+import 'package:project_gotyaa/screens/chat_page.dart';
+import 'package:project_gotyaa/screens/widget/my_container.dart';
 
 class JobDetails extends StatelessWidget {
   const JobDetails({Key? key}) : super(key: key);

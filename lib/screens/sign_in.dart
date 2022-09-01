@@ -3,14 +3,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:project_gotyaa/providers/sign_in_provider.dart';
 
 
-import 'package:project_gotyaa/view/sign_up.dart';
-import 'package:project_gotyaa/view/widget/text_form_field.dart';
+import 'package:project_gotyaa/screens/sign_up.dart';
+import 'package:project_gotyaa/screens/widget/text_form_field.dart';
 import 'package:provider/provider.dart';
 
 class SignIn extends StatelessWidget {
- const  SignIn({Key? key}) : super(key: key);
-  
-  
+  const  SignIn({Key? key}) : super(key: key);
+  // final emailController = TextEditingController();
+  //  final passwordController = TextEditingController();
+ 
   @override
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
@@ -48,9 +49,10 @@ class SignIn extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: MyTextFeild(
-                              controller:signInProvider.emailController ,
+                              controller:value.emailController ,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
+                                prefixIcon: Icon(Icons.person,color:Colors.black,),
                                 fillColor: Colors.white,
                                 filled: true,
                                 hintText: 'email',
@@ -68,15 +70,21 @@ class SignIn extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: MyTextFeild(
-                              controller:signInProvider.passwordController ,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
+                              controller:value.passwordController ,
+                              decoration:  InputDecoration(
+                                border: const OutlineInputBorder(),
                                 fillColor: Colors.white,
                                 filled: true,
                                 hintText: 'Password',
+                                prefixIcon: const Icon(Icons.lock_rounded,color:Colors.black,),
+                                suffixIcon: IconButton(
+                                  onPressed: (){
+                                      value.changePasswordVisibility();
+                                  },
+                                   icon: Icon(value.hidePassword ? Icons.visibility_off : Icons.visibility)
+                                   )
                               ),
-                              obscureText: true,
-                              inputType: TextInputType.number,
+                              obscureText: value.hidePassword,
                               textInputAction: TextInputAction.done,
                               validator:(value) {
                                 if (value == null || value.isEmpty) {
@@ -100,9 +108,12 @@ class SignIn extends StatelessWidget {
                                             MaterialStateProperty.all(
                                                 Colors.green)),
                                     onPressed: () {
-                                     signInProvider.checkValidation(context);
+                                    signInProvider.checkValidation(context);
+                                    // SignInService().signInMethod(email: emailController.text, password: passwordController.text);
+
                                     },
-                                    child: const Text(
+                                    child: signInProvider.isLoad ? const Center(child: CircularProgressIndicator(backgroundColor: Colors.yellow),)
+                                    : const Text(
                                       'Sign In',
                                       style: TextStyle(
                                           fontSize: 25,
@@ -158,9 +169,12 @@ class SignIn extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
-                                          builder: (context) => SignUp(),
+                                          builder: (context) => const SignUp(),
+
                                         ),
                                       );
+                                     
+                                      
                                     },
                                     child: Text(
                                       "Create",

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_gotyaa/view/widget/blog_details.dart';
+import 'package:project_gotyaa/screens/widget/blog_details.dart';
 
 class ReadBlog extends StatelessWidget {
   const ReadBlog({Key? key}) : super(key: key);

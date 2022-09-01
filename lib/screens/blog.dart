@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:project_gotyaa/view/add_new_blog.dart';
-import 'package:project_gotyaa/view/widget/read_blog.dart';
-import 'package:project_gotyaa/view/widget/your_blogs.dart';
+import 'package:project_gotyaa/screens/add_new_blog.dart';
+import 'package:project_gotyaa/screens/widget/read_blog.dart';
+import 'package:project_gotyaa/screens/widget/your_blogs.dart';
 
 class Screen2 extends StatelessWidget {
   const Screen2({Key? key}) : super(key: key);

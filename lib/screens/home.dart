@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:project_gotyaa/view/add_new_job.dart';
+import 'package:project_gotyaa/screens/add_new_job.dart';
 
-import 'package:project_gotyaa/view/job_details.dart';
-import 'package:project_gotyaa/view/search.dart';
+import 'package:project_gotyaa/screens/job_details.dart';
+import 'package:project_gotyaa/screens/search.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);

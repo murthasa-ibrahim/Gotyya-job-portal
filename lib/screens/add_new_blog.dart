@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_gotyaa/view/widget/text_form_field.dart';
+import 'package:project_gotyaa/screens/widget/text_form_field.dart';
 
 class AddNewBlog extends StatelessWidget {
   const AddNewBlog({Key? key}) : super(key: key);
