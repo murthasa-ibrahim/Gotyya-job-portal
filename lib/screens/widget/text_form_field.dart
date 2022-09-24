@@ -4,6 +4,7 @@ class MyTextFeild extends StatelessWidget {
   const MyTextFeild(
       {Key? key,
       this.validator,
+      this.onTap,
       this.textInputAction,
       this.prefixIcon,
       this.onChanged,
@@ -15,6 +16,7 @@ class MyTextFeild extends StatelessWidget {
       this.fillColor = Colors.white,
       this.controller,
       this.border,
+      this.readOnly=false,
       this.maxLines = 1})
       : super(key: key);
   final Color? fillColor;
@@ -29,11 +31,13 @@ class MyTextFeild extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final double? textSize;
   final Color? textColor;
+  final bool  readOnly;
+  final GestureTapCallback? onTap;
   final FormFieldValidator<String>? validator;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      
+      onTap: onTap,
       controller: controller,
       validator: validator,
       textInputAction: textInputAction,
@@ -42,7 +46,7 @@ class MyTextFeild extends StatelessWidget {
       onChanged: onChanged,
       decoration: decoration,
       maxLines: maxLines,
-          
+      readOnly: readOnly,    
 
     );
   }

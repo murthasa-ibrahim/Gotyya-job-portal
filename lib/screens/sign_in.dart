@@ -25,8 +25,8 @@ class SignIn extends StatelessWidget {
           child: Container(
             height: h,
             decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('asset/images/new.jpg'), fit: BoxFit.cover),
+              // image: DecorationImage(
+              //     image: AssetImage('asset/images/new.jpg'), fit: BoxFit.cover),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -60,8 +60,8 @@ class SignIn extends StatelessWidget {
                               inputType: TextInputType.emailAddress,
                               textInputAction: TextInputAction.next,
                               validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'enter mail';
+                                if (value == null || value.isEmpty||!value.contains('@')) {
+                                  return 'enter valid mail';
                                 }
                                 return null;
                               },
@@ -167,7 +167,7 @@ class SignIn extends StatelessWidget {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.of(context).push(
+                                      Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                           builder: (context) => const SignUp(),
 

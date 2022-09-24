@@ -20,4 +20,7 @@ class NavBarProvider extends ChangeNotifier{
       screenIndex = index;
       notifyListeners();
     }
+
+    bool alertCheck = true;
+    
 }

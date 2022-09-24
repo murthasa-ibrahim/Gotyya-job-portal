@@ -1,13 +1,14 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:project_gotyaa/models/sign_up_model.dart';
+import 'package:project_gotyaa/models/signup_response_model.dart';
 import 'package:project_gotyaa/screens/sign_in.dart';
 import 'package:project_gotyaa/services/sign_up.dart';
 import 'package:project_gotyaa/utility/util.dart';
 
 class SignUpProvider extends ChangeNotifier {
-
-
+  bool hidePassword = false;
   bool isLoad = false;
 
   // api errors
@@ -23,10 +24,9 @@ class SignUpProvider extends ChangeNotifier {
       TextEditingController();
 
   // signUp request
-  postRequest(BuildContext context) {
-    
+  postRequest(BuildContext context) async {
     notifyListeners();
-    
+
     if (formKey.currentState!.validate()) {
       final email = mailController.text;
       final userName = namController.text;
@@ -37,35 +37,114 @@ class SignUpProvider extends ChangeNotifier {
         username: userName,
         password: password,
       );
-           isLoad = true;
-      SignUpRegistration().createUser(user, context).then(
-        (response) {
-           isLoad = false;
-          // checking user is null or not
-          if (response == null) {
-            return ;
-          }
+      isLoad = true;
+      SignUpResponsModel? response =
+          await SignUpRegistration().createUser(user);
 
-          // show snackbar if user register is success
-          else if (response['success'] == true) {
-            Utility.displaySnackbar(
-                context: context,
-                msg: response['message'],
-                color: Colors.green);
-                Navigator.of(context).pop();
-          }
+      if (response != null) {
+        isLoad = false;
+        notifyListeners();
+        if (response.email != null) {
+          log('log6');
+          showDialog(
+              context: context,
+              builder: (innerContext) {
+                return AlertDialog(
+                  title: const Text(
+                    'Welcome',
+                    style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green),
+                  ),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        'Successfully registered',
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'We have sent a varification link to ${response.email} check and validate',
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const SignIn(),
+                        ));
+                        // Navigator.of(context).pop();
+                      },
+                      child: const Text(
+                        'OK',
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                    )
+                  ],
+                );
+              });
+        } else {
+          log('log7');
+          Utility.displaySnackbar(
+              context: context,
+              msg: response.message ?? 'something went wrong',
+              color: Colors.red);
+        }
+      } else {
+        isLoad = false;
+        notifyListeners();
+        log('log8');
+        Utility.displaySnackbar(
+            context: context, msg: 'No Network Found!', color: Colors.red);
+      }
 
-          // show validation error based on email and user name already exist or not
-          if (response.containsKey('email')) {
-            emailError = response['email'][0];
-          }
-          if (response.containsKey('username')) {
-            userNmaeError = response['username'][0];
-          }
+      // .then(
+      //   (response) {
+      //      isLoad = false;
+      //     // checking user is null or not
+      //     if (response == 'success') {
+      //       print(response);
 
-          notifyListeners();
-        },
-      );
+      //     }
+
+      //     // show snackbar if user register is success
+      //     else if (response['success'] == true) {
+      //       Utility.displaySnackbar(
+      //           context: context,
+      //           msg: response['message'],
+      //           color: Colors.green);
+      //           Navigator.of(context).pop();
+      //     }
+
+      //     // show validation error based on email and user name already exist or not
+      //     if (response.containsKey('email')) {
+      //       emailError = response['email'][0];
+      //     }
+      //     if (response.containsKey('username')) {
+      //       userNmaeError = response['username'][0];
+      //     }
+      //     else if(response.containsKey['network error']){
+      //       Utility.displaySnackbar(context: context, msg: 'Network Erro');
+      //     }
+
+      //     notifyListeners();
+      //   },
+      // );
     }
   }
 
@@ -85,15 +164,9 @@ class SignUpProvider extends ChangeNotifier {
     }
   }
 
-   // change obscure text value
- void changePasswordVisibility(){
+  // change obscure text value
+  void changePasswordVisibility() {
     hidePassword = !hidePassword;
     notifyListeners();
-   }
-
-   bool hidePassword = false;
-
-
-  
-
+  }
 }

@@ -5,8 +5,9 @@ class YourBlogs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+        physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(16.0),
               child: Container(
                 height: 350,
                 decoration: BoxDecoration(
@@ -45,7 +46,7 @@ class YourBlogs extends StatelessWidget {
                         ),
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 6,
+                        maxLines: 5,
                       ),
                       const Spacer(),
                       TextButton(

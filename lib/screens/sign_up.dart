@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_gotyaa/providers/sign_up_provider.dart';
+import 'package:project_gotyaa/screens/sign_in.dart';
 import 'package:project_gotyaa/screens/widget/text_form_field.dart';
 import 'package:provider/provider.dart';
 
@@ -13,8 +14,7 @@ class SignUp extends StatelessWidget {
     final signUpProvider = Provider.of<SignUpProvider>(context, listen: false);
     return Scaffold(
       body: SafeArea(
-        child: 
-        SingleChildScrollView(
+        child: SingleChildScrollView(
           child: Container(
             height: h,
             decoration: const BoxDecoration(
@@ -97,8 +97,10 @@ class SignUp extends StatelessWidget {
                               textInputAction: TextInputAction.next,
                               inputType: TextInputType.emailAddress,
                               validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Mail is required';
+                                if (value == null ||
+                                    value.isEmpty ||
+                                    !value.contains('@')) {
+                                  return 'enter a valid mail';
                                 }
                                 return null;
                               },
@@ -141,8 +143,7 @@ class SignUp extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Consumer<SignUpProvider>(
-                              builder:  (context, value, child) => 
-                               MyTextFeild(
+                              builder: (context, value, child) => MyTextFeild(
                                 textInputAction: TextInputAction.done,
                                 inputType: TextInputType.number,
                                 obscureText: value.hidePassword,
@@ -180,18 +181,21 @@ class SignUp extends StatelessWidget {
                                             MaterialStateProperty.all(
                                                 Colors.green)),
                                     onPressed: () {
-                                     
                                       signUpProvider.postRequest(context);
-                                      
-                                    
                                     },
-                                    child: signUpProvider.isLoad ? const Center(child:  CircularProgressIndicator(color: Colors.red,),) : const Text(
-                                      'Sign Up',
-                                      style: TextStyle(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                    ))),
+                                    child: signUpProvider.isLoad
+                                        ? const Center(
+                                            child: CircularProgressIndicator(
+                                              color: Colors.red,
+                                            ),
+                                          )
+                                        : const Text(
+                                            'Sign Up',
+                                            style: TextStyle(
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ))),
                           ),
                           Row(
                             children: [
@@ -202,7 +206,10 @@ class SignUp extends StatelessWidget {
                                     color: Colors.white, fontSize: 17),
                               ),
                               TextButton(
-                                onPressed: () => Navigator.of(context).pop(),
+                                onPressed: () => Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => const SignIn(),
+                                )),
                                 child: const Text(
                                   " Sign in",
                                   style: TextStyle(

@@ -11,15 +11,20 @@ class ChatList extends StatelessWidget {
     return Scaffold(
      body: SafeArea(child: 
      Padding(
-       padding: const EdgeInsets.all(8.0),
+       padding: const EdgeInsets.all(16.0),
        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Text( 'Chats',style: GoogleFonts.spectral(fontSize: 40,fontWeight: FontWeight.bold),),
+          
+           Padding(
+             padding: const EdgeInsets.only(left: 10),
+             child: Text( 'Chats',style: GoogleFonts.spectral(fontSize: 40,fontWeight: FontWeight.bold,),),
+           ),
           
           const Divider(thickness: 1,),
           Expanded(
             child: ListView.separated(
+              physics: const BouncingScrollPhysics(),
              itemBuilder: (context, index) => 
                ListTile(
               onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ChatScreen(),)),

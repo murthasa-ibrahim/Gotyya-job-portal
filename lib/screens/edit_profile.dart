@@ -46,7 +46,7 @@ class EditProfile extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8))),
                 ),
                 const SizedBox(height: 20,),
-                  TextFormField(
+                  MyTextFeild(
                       decoration: InputDecoration(
                          fillColor: Colors.white,
                          filled: true,
@@ -59,8 +59,8 @@ class EditProfile extends StatelessWidget {
                   height: 20,
                 ),
                  Text( 'About me',style: GoogleFonts.spectral(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.white),),
-                TextFormField(
-                  minLines: 9,
+                MyTextFeild(
+                  
                   maxLines: 9,
                   decoration: InputDecoration(
                      fillColor: Colors.white,
@@ -73,8 +73,7 @@ class EditProfile extends StatelessWidget {
                   height: 20,
                 ),
                   Text( 'My skills',style: GoogleFonts.spectral(fontSize: 20,color: Colors.white),),
-                 TextFormField(
-                  minLines: 9,
+                 MyTextFeild(
                   maxLines: 9,
                   decoration: InputDecoration(
                      fillColor: Colors.white,
@@ -85,8 +84,7 @@ class EditProfile extends StatelessWidget {
                 ),
                 const SizedBox(height: 20,),
                   Text( 'Experience',style: GoogleFonts.spectral(fontSize: 20,color: Colors.white),),
-                 TextFormField(
-                  minLines: 2,
+                 MyTextFeild(
                   maxLines: 2,
                   decoration: InputDecoration(
                     fillColor: Colors.white,
@@ -108,7 +106,7 @@ class EditProfile extends StatelessWidget {
                              borderRadius: BorderRadius.circular(8))),
                    ),
                    const SizedBox(height: 20,),
-                    TextFormField(
+                    MyTextFeild(
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,

@@ -1,10 +1,10 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:project_gotyaa/providers/create_profile_provder.dart';
 import 'dart:math' as math;
-import 'package:project_gotyaa/screens/edit_profile.dart';
+import 'package:project_gotyaa/screens/settings.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -41,9 +41,11 @@ class ProfileScreen extends StatelessWidget {
                   const Text(
                     "Email  : sail@gmail.com \nPhone : 9061118778",
                     style: TextStyle(fontSize: 18, color: Colors.white),
-                  )
+                  ),
+                  
                 ],
               ),
+              
             ),
           ),
           const SizedBox(
@@ -103,11 +105,12 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
-  File? imageFile;
-
+  
+  
   @override
   Widget build(BuildContext context) {
     double circleHeight = widget.height * 2 / 3;
+   final profilProvider = context.read<CreateProfileProvder>();
     return Column(
       children: [
         SizedBox(
@@ -126,26 +129,29 @@ class _MyProfileState extends State<MyProfile> {
                   alignment: Alignment.topCenter,
                   child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Text('Profiel',
+                      child: Text('Profile',
                           style: GoogleFonts.spectral(
                               fontSize: 40, fontWeight: FontWeight.bold)))),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(circleHeight / 2),
-                  child: Container(
-                      height: circleHeight,
-                      width: circleHeight,
-                      color: Colors.black,
-                      child: imageFile == null
-                          ? Image.asset(
-                              'asset/images/avathar.jpg',
-                              fit: BoxFit.cover,
-                            )
-                          : Image.file(
-                              imageFile!,
-                              fit: BoxFit.cover,
-                            )),
+                  child: Consumer<CreateProfileProvder>(
+                    builder: (context, value, child) => 
+                     Container(
+                        height: circleHeight,
+                        width: circleHeight,
+                        color: Colors.black,
+                        child: profilProvider.imageFile == null
+                            ? Image.asset(
+                                'asset/images/avathar.jpg',
+                                fit: BoxFit.cover,
+                              )
+                            : Image.file(
+                                profilProvider.imageFile!,
+                                fit: BoxFit.cover,
+                              )),
+                  ),
                 ),
               ),
               Align(
@@ -154,7 +160,7 @@ class _MyProfileState extends State<MyProfile> {
                     padding: EdgeInsets.only(left: circleHeight / 2),
                     child: ElevatedButton(
                         onPressed: () {
-                          pickSource();
+                         profilProvider.pickSource(context);
                         },
                         style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(),
@@ -168,14 +174,15 @@ class _MyProfileState extends State<MyProfile> {
                         )),
                   )),
               Align(
-                  alignment: Alignment.bottomRight,
+                  alignment: Alignment.topRight,
                   child: IconButton(
                       onPressed: () {
-                        showSettings();
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings(),));
+                        //showSettings();
                       },
                       icon: const Icon(
-                        Icons.edit_note_sharp,
-                        size: 30,
+                        Icons.settings,
+                        size: 25,
                       )))
             ],
           ),
@@ -191,108 +198,60 @@ class _MyProfileState extends State<MyProfile> {
     );
   }
 
-  void chosePIck(ImageSource source) async {
-    final imagPicker = ImagePicker();
-    final xfile = await imagPicker.pickImage(source: source);
-    if (xfile != null) {
-      setState(() {
-        imageFile = File(xfile.path);
-      });
-    }
-  }
 
-  void pickSource() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Choose',
-                style: GoogleFonts.spectral(
-                  fontSize: 25,
-                )),
-            actionsAlignment: MainAxisAlignment.center,
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      chosePIck(ImageSource.camera);
-                    },
-                    icon: const Icon(
-                      Icons.camera_alt,
-                      size: 50,
-                    )),
-                const SizedBox(
-                  width: 30,
-                ),
-                IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      chosePIck(ImageSource.gallery);
-                    },
-                    icon: const Icon(
-                      Icons.image,
-                      size: 50,
-                    )),
-              ],
-            ),
-          );
-        });
-  }
 
-  showSettings() {
-    showModalBottomSheet(
-        backgroundColor: Colors.transparent,
-        context: context,
-        builder: (context) {
-          final size = MediaQuery.of(context).size;
-          return Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-              color: Colors.white,
-            ),
-            height: math.max(size.width / 3, size.height * .3),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const EditProfile(),
-                      ));
-                      // chosePIck(ImageSource.camera);
-                    },
-                    child: Text('Edit profile',
-                        style: GoogleFonts.spectral(
-                            fontSize: 25, fontWeight: FontWeight.bold))),
-                const Divider(
-                  thickness: 1,
-                  color: Colors.teal,
-                ),
-                InkWell(
-                    onTap: () {},
-                    child: const Text(
-                      'Saved Jobs',
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                    )),
-                const Divider(
-                  thickness: 1,
-                  color: Colors.teal,
-                ),
-                InkWell(
-                    onTap: () => Navigator.pop(context),
-                    child: const Text(
-                      'Saved Jobs',
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                    ))
-              ],
-            ),
-          );
-        });
-  }
+  // showSettings() {
+  //   showModalBottomSheet(
+  //       backgroundColor: Colors.transparent,
+  //       context: context,
+  //       builder: (context) {
+  //         final size = MediaQuery.of(context).size;
+  //         return Container(
+  //           decoration: const BoxDecoration(
+  //             borderRadius: BorderRadius.only(
+  //                 topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+  //             color: Colors.white,
+  //           ),
+  //           height: math.max(size.width / 3, size.height * .3),
+  //           child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //             children: [
+  //               InkWell(
+  //                   onTap: () {
+  //                     Navigator.pop(context);
+  //                     Navigator.of(context).push(MaterialPageRoute(
+  //                       builder: (context) => const EditProfile(),
+  //                     ));
+  //                     // chosePIck(ImageSource.camera);
+  //                   },
+  //                   child: Text('Edit profile',
+  //                       style: GoogleFonts.spectral(
+  //                           fontSize: 25, fontWeight: FontWeight.bold))),
+  //               const Divider(
+  //                 thickness: 1,
+  //                 color: Colors.teal,
+  //               ),
+  //               InkWell(
+  //                   onTap: () {},
+  //                   child: const Text(
+  //                     'Saved Jobs',
+  //                     style:
+  //                         TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+  //                   )),
+  //               const Divider(
+  //                 thickness: 1,
+  //                 color: Colors.teal,
+  //               ),
+  //               InkWell(
+  //                   onTap: () => Navigator.pop(context),
+  //                   child: const Text(
+  //                     'Saved Jobs',
+  //                     style:
+  //                         TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+  //                   ))
+  //             ],
+  //           ),
+  //         );
+  //       });
+  // }
 }

@@ -1,11 +1,17 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:project_gotyaa/screens/widget/text_form_field.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/blog_provider.dart';
 
 class AddNewBlog extends StatelessWidget {
   const AddNewBlog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final blogProvider = context.read<BlogProvider>();
     return Scaffold(
       body: SafeArea(child: 
        Container(
@@ -25,10 +31,11 @@ class AddNewBlog extends StatelessWidget {
                 IconButton(onPressed: (){Navigator.of(context).pop();}, icon:const  Icon(Icons.close,color: Colors.white,))
               ],
             ),
-          const Padding(
-              padding:  EdgeInsets.all(10.0),
+           Padding(
+              padding: const EdgeInsets.all(10.0),
               child: MyTextFeild(
-               decoration: InputDecoration(
+                controller:blogProvider.headlineController,
+               decoration:const InputDecoration(
                 hintText: 'Head line',
                 border: OutlineInputBorder(),
                 fillColor: Colors.white,
@@ -37,20 +44,25 @@ class AddNewBlog extends StatelessWidget {
                 
                 ),     
             ),
-           const Expanded(
+            Expanded(
              child: Padding(
-                padding:  EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 child: MyTextFeild(
+                  controller: blogProvider.contentController,
                   maxLines: 26,
-                    decoration: InputDecoration(
+                    decoration:const InputDecoration(
                 hintText: 'Content',
                 border: OutlineInputBorder(),
                 fillColor: Colors.white,
                 filled: true
                ),
-                  ),     
+                  ), 
+
               ),
            ), 
+           ElevatedButton(onPressed: (){
+            blogProvider.createBlog(context);
+           }, child: const Text('Submit'))
           ],
          ),
        )
