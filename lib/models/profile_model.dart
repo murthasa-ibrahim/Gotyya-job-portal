@@ -2,19 +2,21 @@ import 'dart:io';
 
 class ProfileModel {
   ProfileModel(
-      {this.firstName,
+      {this.id,
+        this.firstName,
       this.lastName,
       this.dateOfBirth,
       this.profilePhoto,
       this.cv,
       this.about,
       this.message});
-
+  final int? id;
   final String? firstName;
   final String? lastName;
   final String? dateOfBirth;
-  final File? profilePhoto;
-  final File? cv;
+  
+  final String? profilePhoto;
+  final String? cv;
   final String? about;
   final String? message;
 
