@@ -13,46 +13,18 @@ import 'package:project_gotyaa/view_model/get_profile_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../data/remote/services/create_profile_api.dart';
+import '../view/profile/new_profile/new_user_peofile.dart';
 
 class CreateProfileProvder extends ChangeNotifier {
-//--------------- fuction to covert asset image to file-------------//
-//   Future<File> getImageFileFromAssets(String path) async {
-//     final byteData = await rootBundle.load(path);
-// // final file = File('${(await path_provider.getExternalStorageDirectory())!.path}/$path');
-// //  file.createSync();
-//     final file = File('${(await getTemporaryDirectory()).path}/$path');
-//     // log(file.path);
-//     await file.writeAsBytes(byteData.buffer
-//         .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+  Future<File> getImageFileFromAssets(String path) async {
+    final byteData = await rootBundle.load(path);
 
-//     return file;
-//   }
+    final file = File('${(await getTemporaryDirectory()).path}.jpg');
+    await file.writeAsBytes(byteData.buffer
+        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
 
-Future<File> getImageFileFromAssets(String path) async {
-  final byteData = await rootBundle.load(path);
-
-  final file = File('${(await getTemporaryDirectory()).path}/.jpg');
-  await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-
-  return file;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return file;
+  }
 
   //form field controllers
   final TextEditingController nameController = TextEditingController();
@@ -70,7 +42,6 @@ Future<File> getImageFileFromAssets(String path) async {
       return 'This feild is requierd';
     }
     return null;
-    
   }
 
   File? imageFile;
@@ -140,10 +111,6 @@ Future<File> getImageFileFromAssets(String path) async {
     }
   }
 
-  // profile details list
-
-  ProfileModel? profileDetails;
-
   // create profile api request
 
   void createProfileRequest(BuildContext context) async {
@@ -156,7 +123,6 @@ Future<File> getImageFileFromAssets(String path) async {
       final name = nameController.text;
       final headLine = headlineController.text;
       final about = aboutController.text;
-      // final cv = image;
 
       final obj = ProfileModel(
           firstName: name,
@@ -165,11 +131,16 @@ Future<File> getImageFileFromAssets(String path) async {
           profilePhoto: image.path,
           cv: image.path,
           about: about);
-      log('me');
-      ProfileModel? response = await CreateProfileApi().createProfileApi(obj);
+      final response = await CreateProfileApi().createProfileApi(obj);
       if (response != null) {
         if (response.lastName != null) {
-          context.read<GetProfileProvider>().noProfile = false;
+          context.read<GetProfileProvider>().setProfileStatus();
+          nameController.clear();
+          headlineController.clear();
+          aboutController.clear();
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const UserProfile(),
+          ));
         } else {
           Utility.displaySnackbar(
               context: context, msg: response.message!, color: Colors.red);

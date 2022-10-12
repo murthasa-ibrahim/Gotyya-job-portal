@@ -47,6 +47,7 @@ dependencies:
   badges: ^2.0.3
   flutter_speed_dial: ^6.0.0
   path_provider: ^2.0.11
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:

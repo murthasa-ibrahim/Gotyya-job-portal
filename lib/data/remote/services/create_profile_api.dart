@@ -5,7 +5,6 @@ import 'package:project_gotyaa/models/profile_model.dart';
 import 'package:project_gotyaa/data/remote/api_endpoints/api_endpoints.dart';
 import 'package:project_gotyaa/utils/util.dart';
 
-
 class CreateProfileApi {
   Future<ProfileModel>? createProfileApi(ProfileModel obj) async {
     log('got it');
@@ -33,6 +32,7 @@ class CreateProfileApi {
       );
 
       if (response.statusCode! >= 200 || response.statusCode! <= 299) {
+         
         log('1');
         log(response.data.toString());
          return ProfileModel.fromJson(response.data);

@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:project_gotyaa/models/sign_in_model.dart';
-import 'package:project_gotyaa/view/navbar.dart';
+import 'package:project_gotyaa/view/navbar/navbar.dart';
 import 'package:project_gotyaa/utils/util.dart';
 
 import '../data/remote/services/sgin_in_service.dart';

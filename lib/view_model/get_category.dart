@@ -1,18 +1,30 @@
+
+
 import 'package:flutter/cupertino.dart';
+import 'package:project_gotyaa/view_model/get_job_list.dart';
+import 'package:provider/provider.dart';
 
 import '../data/remote/services/get_catagory.dart';
 
 class GetCategryProvider extends ChangeNotifier {
-  getCatogory() async {
-    GetCategory().getCategoryApi();
-    // final response = await  GetProfile().getProfileApi();
-    // if(response != null){
-    //   if(response.message!=null){
-    //     throw response.message!;
-    //   }
-    //   return response;
+  List<String> categoryList = [];
+  Future<void> getCatogory() async {
+    final response = await GetCategory().getCategoryApi();
 
-    // }
-    // return null;
+    if (categoryList.isEmpty) {
+      categoryList = response;
+      notifyListeners();
+    }
+  }
+
+  Future<void> refreshHome(BuildContext context) async {
+    await getCatogory();
+    await context.read<GetJobListProvider>().getJoblist();
+  }
+
+  onInit(BuildContext context) {
+    if (categoryList.isEmpty) {
+      refreshHome(context);
+    }
   }
 }

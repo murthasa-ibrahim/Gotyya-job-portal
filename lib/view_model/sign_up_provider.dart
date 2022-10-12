@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:project_gotyaa/models/sign_up_model.dart';
 import 'package:project_gotyaa/models/signup_response_model.dart';
-import 'package:project_gotyaa/view/sign_in.dart';
+import 'package:project_gotyaa/view/registration/sign_in/sign_in.dart';
 import 'package:project_gotyaa/utils/util.dart';
 
 import '../data/remote/services/sign_up.dart';

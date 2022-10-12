@@ -26,6 +26,8 @@ class SignInService {
 
         await Utility.storage
             .write(key: 'access', value: response.data['access']);
+            await Utility.storage
+            .write(key: 'refresh', value: response.data['refresh']);
         log( response.data['access'].toString());
         log( response.data['refresh'].toString());
         return SignInResponsModel.fromJson(response.data);

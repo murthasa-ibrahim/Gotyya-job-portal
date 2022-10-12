@@ -2,12 +2,11 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:project_gotyaa/models/get_profile_model.dart';
 import 'package:project_gotyaa/data/remote/api_endpoints/api_endpoints.dart';
 import 'package:project_gotyaa/utils/util.dart';
 
 class GetCategory {
-   getCategoryApi() async {
+   Future<List<String>> getCategoryApi() async {
     try {
       const url = ApiEndpoints.baseUrl + ApiEndpoints.getCategory;
        final token = await Utility.storage.read(key: 'access');
@@ -17,7 +16,13 @@ class GetCategory {
       log('2');
       if (response.statusCode! >= 200 || response.statusCode! <= 299) {
         log(response.data.toString());
+
+        List list =    response.data;
+      List<String> newList =  list.map((e) => e["category_name"] as String) .toList();
+        log(newList.toString() );
+
         log('3');
+        return newList;
         // return ProfileGetModel.fromJson(response.data);
       } else {
         // return ProfileGetModel(message: "something went wrong");
@@ -30,17 +35,18 @@ class GetCategory {
         }
         if (e.response?.data == null) {
           log(e.response.toString());
-          return ProfileGetModel(message: "something went wrong!");
+          // return ProfileGetModel(message: "something went wrong!");
         } else {
           log('5');
           log(e.response!.data.toString());
-          return ProfileGetModel(message: 'Something went wrong!!');
+          // return ProfileGetModel(message: 'Something went wrong!!');
         }
       } else {
         log('6');
         log(e.toString());
-        return ProfileGetModel(message: "something went wrong!!!");
+        // return ProfileGetModel(message: "something went wrong!!!");
       }
     }
+    return [];
   }
 }

@@ -11,4 +11,7 @@ class ApiEndpoints {
   static const addComment = "/blog/comment/";
   static const getCategory = "jobs/category/";
   static const getJobList = "jobs/jobposting/";
+  static const refreshToken = "auth/jwt/verify/";
+  static const addLike = "blog/reaction/";
+  static const deleteBlog = "blog/posts/";
 }

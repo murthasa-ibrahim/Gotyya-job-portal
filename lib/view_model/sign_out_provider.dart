@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_gotyaa/view/sign_in.dart';
+import 'package:project_gotyaa/view/registration/sign_in/sign_in.dart';
 import 'package:project_gotyaa/utils/util.dart';
 
 class SignOutProvider extends ChangeNotifier {

@@ -17,7 +17,7 @@ class GetJObList {
 
       if (response.statusCode! >= 200 || response.statusCode! <= 299) {
         // log(response.toString());
-        log('3');
+        log('a');
        
         var a= JobListGetModel.jobListGetModelFromJson(response.data);
         log(a.toString());
