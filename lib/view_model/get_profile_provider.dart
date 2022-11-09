@@ -1,35 +1,15 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:project_gotyaa/models/get_profile_model.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../const/constant.dart';
 import '../data/remote/services/get_profile.dart';
-import '../utils/util.dart';
 
 class GetProfileProvider extends ChangeNotifier {
-  bool noProfile = true;
-
-  setProfileStatus() async {
-    noProfile = false;
-    const storage = FlutterSecureStorage();
-    await storage.write(key: 'status', value: "false");
-    notifyListeners();
-  }
-
-  Future<bool> checkProfileStatus() async {
-    final status = await Utility.storage.read(key: "status");
-    if (status == "false") {
-      noProfile = false;
-    }
-    return true;
-  }
+  
 
   ProfileGetModel? profileDetails;
-  // checkProfileStatus() {
-  //   noProfile = false;
-  //   notifyListeners();
-  // }
 
   getProfileRequest() async {
     final response = await GetProfile().getProfileApi();
@@ -40,12 +20,18 @@ class GetProfileProvider extends ChangeNotifier {
     }
   }
 
-  oninit() {
+  oninit()async {
     if (profileDetails == null) {
-      getProfileRequest();
-      notifyListeners();
+    await  getProfileRequest();
     }
   }
+
+SampleItem? selectedMenu;
+  void addToSelectedMenu(SampleItem item){
+       selectedMenu = item;
+       notifyListeners();
+  }
+
 
   //----------------- shimmer loading-----------------///
 

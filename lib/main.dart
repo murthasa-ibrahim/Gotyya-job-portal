@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:project_gotyaa/view_model/add_comment.dart';
 import 'package:project_gotyaa/view_model/add_like.dart';
 import 'package:project_gotyaa/view_model/blog_get.dart';
@@ -27,6 +28,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown
+    ]);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<NavBarProvider>(
@@ -81,7 +86,7 @@ class MyApp extends StatelessWidget {
           // textTheme: GoogleFonts.aBeeZeeTextTheme(Theme.of(context).textTheme),
           primarySwatch: Colors.teal,
         ),
-        home:const  Splash(),
+        home: const  Splash(),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:project_gotyaa/view/widget/text_form_field.dart';
 import 'package:project_gotyaa/view_model/job_create.dart';
 import 'package:provider/provider.dart';
 
+import 'widget/category_dropdown.dart';
 
 class AddJob extends StatelessWidget {
   const AddJob({Key? key}) : super(key: key);
@@ -32,13 +33,13 @@ class AddJob extends StatelessWidget {
                             Icons.arrow_back_ios_new_outlined,
                             size: 20,
                             color: Colors.white,
-                          )),
+                          ),),
                       Text(
                         'Add New Job',
                         style: GoogleFonts.spectral(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                            color: Colors.white,),
                       ),
                     ],
                   ),
@@ -50,18 +51,18 @@ class AddJob extends StatelessWidget {
                     style: GoogleFonts.spectral(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                        color: Colors.white,),
                   ),
                   MyTextFeild(
                     controller: provider.titleController,
-                    validator: (value)=> provider.validation(value),
+                    validator: (value) => provider.validation(value),
                     maxLines: 1,
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                         hintStyle: const TextStyle(color: Colors.black),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8))),
+                            borderRadius: BorderRadius.circular(8),),),
                   ),
                   const SizedBox(
                     height: 20,
@@ -71,8 +72,9 @@ class AddJob extends StatelessWidget {
                     style: GoogleFonts.spectral(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                        color: Colors.white,),
                   ),
+                 const CategoryDropDown(),
                   // const CategoryDropDown(),
                   const SizedBox(
                     height: 20,
@@ -82,18 +84,18 @@ class AddJob extends StatelessWidget {
                     style: GoogleFonts.spectral(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                        color: Colors.white,),
                   ),
                   MyTextFeild(
                     maxLines: 10,
-                     validator: (value)=> provider.validation(value),
+                    validator: (value) => provider.validation(value),
                     controller: provider.descriptionController,
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                         hintStyle: const TextStyle(color: Colors.black),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8))),
+                            borderRadius: BorderRadius.circular(8),),),
                   ),
                   const SizedBox(
                     height: 20,
@@ -103,12 +105,12 @@ class AddJob extends StatelessWidget {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: Colors.amber),
                         onPressed: () {
-                          provider.jobCreate();
+                          provider.jobCreate(context);
                         },
                         child: Text(
                           'Submit',
                           style: GoogleFonts.spectral(fontSize: 20),
-                        )),
+                        ),),
                   )
                 ],
               ),
@@ -119,3 +121,4 @@ class AddJob extends StatelessWidget {
     );
   }
 }
+

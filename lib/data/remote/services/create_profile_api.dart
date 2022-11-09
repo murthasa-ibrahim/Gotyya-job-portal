@@ -57,7 +57,7 @@ class CreateProfileApi {
       } else {
         log('3');
         log(e.toString());
-        return ProfileModel(message: e.toString());
+        return ProfileModel(message:"something went wrong!");
       }
     }
   }

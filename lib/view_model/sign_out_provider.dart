@@ -11,6 +11,7 @@ class SignOutProvider extends ChangeNotifier {
       () {
         isLoad = false;
         notifyListeners();
+        Navigator.of(context).pop();
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

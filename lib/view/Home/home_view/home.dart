@@ -20,7 +20,8 @@ class Home extends StatelessWidget {
         body: RefreshIndicator(
           backgroundColor: Colors.white,
           color: Colors.teal,
-          onRefresh: ()async => await context.read<GetCategryProvider>().refreshHome(context),
+          onRefresh: () async =>
+              await context.read<GetCategryProvider>().refreshHome(context),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(

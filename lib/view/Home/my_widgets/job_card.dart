@@ -19,7 +19,11 @@ class JobCard extends StatelessWidget {
     return SizedBox(
       height: w * .6,
       child: Consumer<GetJobListProvider>(
-        builder: (context, provider, child) => ListView.builder(
+        builder: (context, provider, child){
+          if(provider.jobList.isEmpty){
+            return const Center(child:  Text('No job Found',style:  TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.deepOrange),));
+          }else{
+            return  ListView.builder(
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           itemCount: provider.jobList.length,
@@ -88,7 +92,9 @@ class JobCard extends StatelessWidget {
               ),
             ),
           ),
-        ),
+        );
+          }
+        }
       ),
     );
   }

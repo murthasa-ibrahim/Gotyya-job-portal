@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:project_gotyaa/view/widget/text_form_field.dart';
+import 'package:project_gotyaa/view_model/blog_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../../view_model/blog_provider.dart';
-import '../../widget/text_form_field.dart';
-
 class AddNewBlog extends StatelessWidget {
-  const AddNewBlog({Key? key}) : super(key: key);
+  const AddNewBlog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +39,7 @@ class AddNewBlog extends StatelessWidget {
                     icon: const Icon(
                       Icons.close,
                       color: Colors.white,
-                    ))
+                    ),)
               ],
             ),
             Padding(
@@ -51,7 +50,7 @@ class AddNewBlog extends StatelessWidget {
                     hintText: 'Head line',
                     border: OutlineInputBorder(),
                     fillColor: Colors.white,
-                    filled: true),
+                    filled: true,),
               ),
             ),
             Expanded(
@@ -64,7 +63,7 @@ class AddNewBlog extends StatelessWidget {
                       hintText: 'Content',
                       border: OutlineInputBorder(),
                       fillColor: Colors.white,
-                      filled: true),
+                      filled: true,),
                 ),
               ),
             ),
@@ -72,10 +71,10 @@ class AddNewBlog extends StatelessWidget {
                 onPressed: () {
                   blogProvider.createBlog(context);
                 },
-                child: const Text('Submit'))
+                child: const Text('Submit'),)
           ],
         ),
-      )),
+      ),),
     );
   }
 }

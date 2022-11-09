@@ -34,7 +34,7 @@ class SignUp extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 20, right: 20),
                     height: h * .7,
                     child: Form(
-                      key: signUpProvider.formKey,
+                      key: signUpProvider.globalKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

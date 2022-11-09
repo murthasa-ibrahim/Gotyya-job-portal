@@ -5,7 +5,7 @@ import 'package:project_gotyaa/data/remote/api_endpoints/api_endpoints.dart';
 import 'package:project_gotyaa/utils/util.dart';
 
 class DeleteBlog {
-  deleteBlogApi(int id) async {
+   deleteBlogApi(int id) async {
     const uri = ApiEndpoints.baseUrl + ApiEndpoints.deleteBlog;
     final token = await Utility.storage.read(key: 'access');
     final dio = Dio();

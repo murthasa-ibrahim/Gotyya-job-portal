@@ -1,9 +1,12 @@
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:project_gotyaa/view/Home/my_widgets/search_job.dart';
+import 'package:project_gotyaa/view_model/create_profile_provder.dart';
 import 'package:provider/provider.dart';
 
-import '../../../view_model/get_profile_provider.dart';
 import '../../profile/create_profile/cteate_profile.dart';
 import '../../profile/new_profile/new_user_peofile.dart';
 
@@ -17,6 +20,7 @@ class MyAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.read<CreateProfileProvder>();
     return Container(
       height: h * .25,
       margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
@@ -40,15 +44,13 @@ class MyAppBar extends StatelessWidget {
               const Spacer(),
               InkWell(
                 onTap: () {
-                     context.read<GetProfileProvider>().checkProfileStatus();
-                  // checkProfileStatus();
+                  controller.checkProfileStatus();
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          context.read<GetProfileProvider>().noProfile
-                              ? const CreateProfile(
-                                  name: "Create your Profile",
-                                )
-                              : const UserProfile()));
+                      builder: (context) => controller.noProfile
+                          ? const CreateProfile(
+                              name: "Create your Profile",
+                            )
+                          : const UserProfile()));
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(40),
@@ -62,7 +64,22 @@ class MyAppBar extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 50, child: CupertinoSearchTextField()),
+          InkWell(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const SearchJob(),
+              ),
+            ),
+            child: const Hero(
+              tag: 1,
+              child: SizedBox(
+                height: 50,
+                child: CupertinoSearchTextField(
+                  enabled: false,
+                ),
+              ),
+            ),
+          ),
           Text(
             'Categories',
             style:

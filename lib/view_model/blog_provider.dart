@@ -7,6 +7,7 @@ import 'package:project_gotyaa/utils/util.dart';
 import '../data/remote/services/create_blog_api.dart';
 
 class BlogProvider extends ChangeNotifier {
+static const String AVAILABLE='gcgv';
   final headlineController = TextEditingController();
   final contentController = TextEditingController();
   Future<void> createBlog(BuildContext context) async {

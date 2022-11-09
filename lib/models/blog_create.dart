@@ -13,8 +13,8 @@ class BlogPostModel {
   final String? message;
   final int? id;
 
-  factory BlogPostModel.fromJson(Map<String, dynamic> json) => BlogPostModel(
-      title: json["title"] ?? '',
+  factory BlogPostModel.fromJson(Map<String, dynamic> json ) => BlogPostModel(
+      title: json["title"] as String,
       content: json["content"] ?? '',
       id: json["id"]);
 

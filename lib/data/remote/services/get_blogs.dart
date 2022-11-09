@@ -1,9 +1,8 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:project_gotyaa/models/blog_create.dart';
 import 'package:project_gotyaa/data/remote/api_endpoints/api_endpoints.dart';
-
+import 'package:project_gotyaa/models/blog_create.dart';
 import 'package:project_gotyaa/utils/util.dart';
 
 class GetBlogsApi {

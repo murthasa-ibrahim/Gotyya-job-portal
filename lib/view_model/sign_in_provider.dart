@@ -18,6 +18,11 @@ class SignInProvider extends ChangeNotifier {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+
+  void clearTextFeild(){
+    emailController.clear();
+    passwordController.clear();
+  }
   //validation
 
   checkValidation(BuildContext context) {
@@ -32,6 +37,7 @@ class SignInProvider extends ChangeNotifier {
         isLoad = false;
         notifyListeners();
         if (response.accessToken != null) {
+           clearTextFeild();
           Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => const Navbar(),
           ));

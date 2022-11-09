@@ -1,6 +1,7 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:project_gotyaa/utils/util.dart';
 
 import '../data/remote/services/job_create.dart';
 
@@ -27,7 +28,7 @@ class JobCreateProvider extends ChangeNotifier {
   addSelectedItem({
     required String item,
   }) {
-    if (item.isEmpty) {
+    if (item.isNotEmpty) {
       selectedItem = item;
     }
     itemIndex = items.indexOf(item) + 1;
@@ -35,15 +36,23 @@ class JobCreateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void jobCreate() async {
-    if (formKey.currentState!.validate()) {
+  void jobCreate(BuildContext context) async {
+    if (formKey.currentState!.validate()) {    
       final response = await JobCreate().jobCreateApi(
         index: itemIndex,
         title: titleController.text,
         description: descriptionController.text,
       );
       if (response != null) {
+        log("successfull");
         
+        if(response["id"]!= null){
+          
+           titleController.clear();
+           descriptionController.clear();
+           Utility.displaySnackbar(context: context, msg: "Job Added Successffully",color: Colors.green);
+        }
+           
       }
     }
   }

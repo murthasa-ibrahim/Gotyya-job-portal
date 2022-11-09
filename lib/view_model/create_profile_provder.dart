@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -9,8 +8,6 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:project_gotyaa/models/profile_model.dart';
 import 'package:project_gotyaa/utils/util.dart';
-import 'package:project_gotyaa/view_model/get_profile_provider.dart';
-import 'package:provider/provider.dart';
 
 import '../data/remote/services/create_profile_api.dart';
 import '../view/profile/new_profile/new_user_peofile.dart';
@@ -76,7 +73,7 @@ class CreateProfileProvder extends ChangeNotifier {
                   icon: const Icon(
                     Icons.camera_alt,
                     size: 50,
-                  )),
+                  ),),
               const SizedBox(
                 width: 30,
               ),
@@ -95,6 +92,26 @@ class CreateProfileProvder extends ChangeNotifier {
         );
       },
     );
+  }
+
+  // check profile status
+
+  bool noProfile = true;
+
+  setProfileStatus() async {
+    noProfile = false;
+
+    await Utility.storage.write(key: 'status', value: "false");
+    notifyListeners();
+  }
+
+  Future<bool> checkProfileStatus() async {
+    final status = await Utility.storage.read(key: "status");
+    // Utility.storage.delete(key: 'status');
+    if (status != null) {
+      noProfile = false;
+    }
+    return true;
   }
 
   // date picking code
@@ -134,7 +151,7 @@ class CreateProfileProvder extends ChangeNotifier {
       final response = await CreateProfileApi().createProfileApi(obj);
       if (response != null) {
         if (response.lastName != null) {
-          context.read<GetProfileProvider>().setProfileStatus();
+          setProfileStatus();
           nameController.clear();
           headlineController.clear();
           aboutController.clear();

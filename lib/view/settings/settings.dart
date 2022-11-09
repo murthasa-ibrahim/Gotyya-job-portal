@@ -49,7 +49,6 @@ class Settings extends StatelessWidget {
           ),
         ],
       )
-      // :const  Center(child: CircularProgressIndicator(color: Colors.teal,),)
       )
       
     );

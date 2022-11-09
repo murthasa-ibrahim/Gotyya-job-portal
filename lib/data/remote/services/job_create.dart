@@ -7,19 +7,26 @@ import 'package:project_gotyaa/utils/util.dart';
 class JobCreate {
   final url = ApiEndpoints.baseUrl + ApiEndpoints.createJob;
 
-  jobCreateApi({required int index,required String title,required String description}) async {
+  jobCreateApi(
+      {required int index,
+      required String title,
+      required String description}) async {
     try {
       final token = await Utility.storage.read(key: "access");
       final dio = Dio();
       dio.options.headers["Authorization"] = "Bearer $token";
-      final response = await dio.post(url, data: {
-        "category": [index],
-        "job_title": title,
-        "job_description": description,
-      });
+      final response = await dio.post(
+        url,
+        data: {
+          "category": [index],
+          "job_title": title,
+          "job_description": description,
+        },
+      );
       if (response.statusCode! >= 200 || response.statusCode! <= 299) {
         log('Succes');
         log(response.data.toString());
+        return response.data;
       } else {
         log('something wengt wrong');
       }

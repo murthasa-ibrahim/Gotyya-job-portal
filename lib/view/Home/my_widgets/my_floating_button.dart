@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-import '../../add_new_job/view/add_new_job.dart';
+import '../../jobs/add_job/add_jobs.dart';
 
 class MyFloatingButton extends StatelessWidget {
   const MyFloatingButton({
